@@ -77,8 +77,15 @@ letterAt' index current (ch:rest)
     | index == current = ch
     | otherwise = letterAt' index (current + 1) rest
 
-main :: IO ()
-main = do
+main1 :: IO ()
+main1 = do
+    text <- readFile "2.txt"
+    let passwordLines = lines text
+    let len = length $ filter matchesPolicy1 $ map parsePasswordRecord passwordLines
+    print len
+
+main2 :: IO ()
+main2 = do
     text <- readFile "2.txt"
     let passwordLines = lines text
     let len = length $ filter matchesPolicy2 $ map parsePasswordRecord passwordLines
