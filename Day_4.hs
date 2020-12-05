@@ -8,14 +8,6 @@ splitPassports = foldl
                         ""  -> []:(passport:rest)
                         _   -> (passport ++ [str]):rest) [[]]
 
--- replace :: String -> Char -> Char -> String
--- replace [] _ _ = []
--- replace (ch:rest) ch1 ch2 = (if ch == ch1 then ch2 else ch):replace rest ch1 ch2
-
--- splitOn :: String -> Char -> (String, String)
--- splitOn fragment ch = (word1, word2)
---     where [word1, word2] = words (replace fragment ch ' ')
-
 toPair :: String -> (String, String)
 toPair fragment = (part1, part2)
     where [part1, part2] = splitOn ":" fragment

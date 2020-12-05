@@ -2,6 +2,8 @@
 
 module Day_5 where
 
+import Data.Sort ( sort )
+
 type BoardingPass = String
 type Row = Int
 type Col = Int
@@ -42,13 +44,6 @@ findMySeatId [_] = -1
 findMySeatId (a:b:rest) | b - a == 2 = a + 1
                         | otherwise  = findMySeatId (b:rest)
 
-quicksort :: Ord a => [a] -> [a]
-quicksort []     = []
-quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
-    where
-        lesser  = filter (< p) xs
-        greater = filter (>= p) xs
-
 main :: IO ()
 main = do
     rawData <- readFile "5.txt"
@@ -58,6 +53,6 @@ main = do
     let highestSeatId = maximum seatIds
     print highestSeatId
 
-    let sortedIds = quicksort seatIds
+    let sortedIds = sort seatIds
     let mySeatId = findMySeatId sortedIds
     print mySeatId

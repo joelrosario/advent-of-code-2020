@@ -1,2 +1,4 @@
 packages:
   split-0.2.3.4
+  parsec-3.1.14.0
+  sort-1.0.0.0
