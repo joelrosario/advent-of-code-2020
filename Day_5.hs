@@ -51,8 +51,8 @@ main = do
     let seats = map seat boardingPasses
     let seatIds = map seatId seats
     let highestSeatId = maximum seatIds
-    print highestSeatId
+    putStrLn $ "Highest seat id: " ++ show highestSeatId
 
     let sortedIds = sort seatIds
     let mySeatId = findMySeatId sortedIds
-    print mySeatId
+    putStrLn $ "My seat id: " ++ show mySeatId
