@@ -76,12 +76,16 @@ parseContainedRules [] = Map.empty
 parseContainedRules rules =
     foldl (\acc rule -> storeContainedRule (parseContainedRule rule) acc) Map.empty rules
 
-findContainedBagCount :: Color -> ContainedBagRules -> Int
-findContainedBagCount color rules =
+findContainedBagCount' :: Color -> ContainedBagRules -> Int
+findContainedBagCount' color rules =
     let contained = fromMaybe [] (Map.lookup color rules)
     in case contained of
         [] -> 1
-        _  -> 1 + (sum $ map (\(containedColor, count) -> count * findContainedBagCount containedColor rules) contained)
+        _  -> 1 + sum (map (\(containedColor, count) -> count * findContainedBagCount' containedColor rules) contained)
+
+findContainedBagCount :: Color -> ContainedBagRules -> Int
+findContainedBagCount color rules =
+    findContainedBagCount' color rules - 1
 
 uniqueList :: Ord a => [a] -> [a]
 uniqueList = Set.toList . Set.fromList
@@ -95,5 +99,5 @@ main = do
     putStrLn ("Container bags: " ++ show (length containingBags))
 
     let containedRules = parseContainedRules textLines
-    let containedBagCount = (findContainedBagCount "shiny gold" containedRules) - 1
+    let containedBagCount = findContainedBagCount "shiny gold" containedRules
     putStrLn ("Contained bags: " ++ show containedBagCount)
